@@ -7,7 +7,7 @@
 Requires Go 1.27 or newer, Linux with FUSE, and `fusermount3`.
 
 ```sh
-go build -o build/solidfs ./cmd/solidfs
+go build -o ./build/solidfs ./cmd/solidfs
 mkdir -p mountpoint
 ./build/solidfs https://example.org/my-pod/ mountpoint
 ```
