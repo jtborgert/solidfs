@@ -7,9 +7,9 @@
 Requires Go 1.27 or newer, Linux with FUSE, and `fusermount3`.
 
 ```sh
-go build -o solidfs ./cmd/solidfs
+go build -o build/solidfs ./cmd/solidfs
 mkdir -p mountpoint
-./solidfs https://example.org/my-pod/ mountpoint
+./build/solidfs https://example.org/my-pod/ mountpoint
 ```
 
 The process stays in the foreground. In another terminal, unmount with `fusermount3 -u mountpoint`.
@@ -20,13 +20,13 @@ By default requests are anonymous. If the server accepts a bearer token, supply 
 
 ```sh
 export SOLIDFS_TOKEN='your-access-token'
-./solidfs https://example.org/my-pod/ mountpoint
+./build/solidfs https://example.org/my-pod/ mountpoint
 ```
 
 For interactive Solid-OIDC login, supply your identity provider's issuer URL:
 
 ```sh
-./solidfs -issuer https://identity.example/ https://example.org/my-pod/ mountpoint
+./build/solidfs -issuer https://identity.example/ https://example.org/my-pod/ mountpoint
 ```
 
 Open the printed URL in a browser on the same machine and complete login. The provider redirects to a temporary loopback listener. By default the client attempts dynamic registration; alternatively pass `-client-id CLIENT_ID` for a public client registered to allow loopback redirects with a variable port. The provider must support authorization code flow with PKCE, DPoP access tokens, and `openid webid offline_access` scopes. ID tokens signed with RS256 or ES256 are supported. The issuer and Pod must use HTTPS (loopback HTTP issuers are permitted for development). Some Solid providers use different registration or token-exchange flows and may not be compatible.
